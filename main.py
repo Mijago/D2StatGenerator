@@ -8,6 +8,7 @@ from app.reports.KillsDeathsAssistsReport import KillsDeathsAssistsReport
 from app.reports.LightLevelReport import LightLevelReport
 from app.reports.PlaytimeReport import PlaytimeReport
 from app.reports.WeaponReport import WeaponReport
+from app.reports.WeekdayReport import WeekdayReport
 
 if __name__ == '__main__':
     import pathos
@@ -23,7 +24,7 @@ if __name__ == '__main__':
 
     Director.CreateDirectoriesForUser(*USED_MEMBERSHIP)
     pc = PGCRCollector(*USED_MEMBERSHIP, api, pool)
-    pc.getCharacters().getActivities(limit=None).getPGCRs(pagesize=1000)#.combineAllPgcrs()
+    pc.getCharacters().getActivities(limit=None).getPGCRs(pagesize=1000)  # .combineAllPgcrs()
     data = pc.getAllPgcrs()
 
     inventoryItemDefs = GetInventoryItemDefinitions()
@@ -33,6 +34,7 @@ if __name__ == '__main__':
     WeaponReport(*USED_MEMBERSHIP, inventoryItemDefs).generate(data).save()
     LightLevelReport(*USED_MEMBERSHIP).generate(data).save()
     PlaytimeReport(*USED_MEMBERSHIP).generate(data).save()
+    WeekdayReport(*USED_MEMBERSHIP).generate(data).save()
 
     Zipper.zip_directory(Director.GetResultDirectory(*USED_MEMBERSHIP), Director.GetZipPath(*USED_MEMBERSHIP))
     print("Generated ZIP:", Director.GetZipPath(*USED_MEMBERSHIP))

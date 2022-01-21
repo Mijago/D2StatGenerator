@@ -43,7 +43,7 @@ class PGCRCollector:
 
             while True:
                 steps = 20
-                print(k, "/", len(self.characters), "|", char_id, "|", "pages", page, "to", page + steps - 1)
+                print(k+1, "/", len(self.characters), "|", char_id, "|", "pages", page, "to", page + steps - 1)
                 activityGroups = self.processPool.amap(downloadActivityPage, range(page, page + steps)).get()
                 realList = [e for e in activityGroups if e is not None]
                 hasNull = len(realList) != steps
