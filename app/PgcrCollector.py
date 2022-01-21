@@ -76,7 +76,7 @@ class PGCRCollector:
         START_PAGE = 0
         for steps in range(START_PAGE, (len(self.activities) + stepsize - 1) // stepsize):
             try:
-                with Timer("get pgcrs for step %d" % steps):
+                with Timer("Get PGCRs %d through %d" % (steps * stepsize, min(len(self.activities), steps * stepsize - 1))):
                     # self.processPool.restart(True)
                     pgcrs = self.processPool.amap(downloadPGCR, self.activities[steps * stepsize:(steps + 1) * stepsize]).get()
                     for pgcr in pgcrs:

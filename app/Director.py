@@ -4,6 +4,10 @@ from pathlib import Path
 class Director:
 
     @staticmethod
+    def GetZipPath(membershipType, membershipId):
+        return "./data/%d_%d/charts_%d_%d.zip" % (membershipType, membershipId, membershipType, membershipId)
+
+    @staticmethod
     def GetResultDirectory(membershipType, membershipId):
         return "./data/%d_%d/result/" % (membershipType, membershipId)
 
