@@ -32,35 +32,52 @@ class PGCRCollector:
         existingPgcrList = [f[5:-5] for f in os.listdir(Director.GetPGCRDirectory(self.membershipType, self.membershipId))]
 
         self.activities = []
-        for char_id in self.characters:
+        for k, char_id in enumerate(self.characters):
             page = 0
-            while True:
-                print(char_id, "page", page)
+
+            def downloadActivityPage(page):
                 act = self.api.getActivities(self.membershipType, self.membershipId, char_id, page=page)
                 if "activities" not in act:
+                    return None
+                return [e["activityDetails"]["instanceId"] for e in act["activities"] if e["activityDetails"]["instanceId"] not in existingPgcrList]
+
+            while True:
+                steps = 20
+                print(k, "/", len(self.characters), "|", char_id, "|", "pages", page, "to", page + steps - 1)
+                activityGroups = self.processPool.amap(downloadActivityPage, range(page, page + steps)).get()
+                realList = [e for e in activityGroups if e is not None]
+                hasNull = len(realList) != steps
+                for activityList in realList:
+                    self.activities += activityList
+
+                page += steps
+                if hasNull:
                     break
-                page += 1
-                self.activities += [e["activityDetails"]["instanceId"] for e in act["activities"] if e["activityDetails"]["instanceId"] not in existingPgcrList]
+
                 if limit is not None:
                     if len(self.activities) > limit:
-                        return self
-        print("Got ",len(self.activities), " activities that must be downloaded.")
+                        break
+
+            if limit is not None:
+                if len(self.activities) > limit:
+                    break
+        print("Got ", len(self.activities), " activities that must be downloaded.")
 
         return self
 
-    def getPGCRs(self):
+    def getPGCRs(self, pagesize=1000):
         bungo = self.api
 
         def downloadPGCR(activity):
             id = activity
             return bungo.getPGCR(id)
 
-        stepsize = 1000
+        stepsize = pagesize
         START_PAGE = 0
         for steps in range(START_PAGE, (len(self.activities) + stepsize - 1) // stepsize):
             try:
                 with Timer("get pgcrs for step %d" % steps):
-                    self.processPool.restart(True)
+                    # self.processPool.restart(True)
                     pgcrs = self.processPool.amap(downloadPGCR, self.activities[steps * stepsize:(steps + 1) * stepsize]).get()
                     for pgcr in pgcrs:
                         with open("%s/pgcr_%s.json" % (Director.GetPGCRDirectory(self.membershipType, self.membershipId), pgcr["activityDetails"]["instanceId"]), "w") as f:
