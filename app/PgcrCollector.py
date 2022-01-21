@@ -77,9 +77,14 @@ class PGCRCollector:
         return self
 
     def getAllPgcrs(self):
-        all = []
+
+        def loadJson(fname):
+            with open(fname, "r") as f:
+                return json.load(f)
+
         with Timer("Get all PGCRs from individual files"):
-            for fname in os.listdir(Director.GetPGCRDirectory(self.membershipType, self.membershipId)):
-                with open(Director.GetPGCRDirectory(self.membershipType, self.membershipId) + "/" + fname, "r") as f:
-                    all.append(json.load(f))
+            root = Director.GetPGCRDirectory(self.membershipType, self.membershipId)
+            fileList = ["%s/%s" % (root, f) for f in os.listdir(root)]
+            pgcrs = self.processPool.amap(loadJson, fileList).get()
+            all = pgcrs
         return all
