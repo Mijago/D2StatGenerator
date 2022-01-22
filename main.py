@@ -23,6 +23,8 @@ if __name__ == '__main__':
     api = BungieApi("API-KEY")
 
     Director.CreateDirectoriesForUser(*USED_MEMBERSHIP)
+    Director.ClearResultDirectory(*USED_MEMBERSHIP)
+    Director.CreateDirectoriesForUser(*USED_MEMBERSHIP)
     pc = PGCRCollector(*USED_MEMBERSHIP, api, pool)
     pc.getCharacters().getActivities(limit=None).getPGCRs(pagesize=1000)  # .combineAllPgcrs()
     data = pc.getAllPgcrs()

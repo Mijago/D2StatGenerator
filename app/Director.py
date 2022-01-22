@@ -1,7 +1,13 @@
+import shutil
 from pathlib import Path
 
 
 class Director:
+
+    @staticmethod
+    def ClearResultDirectory(membershipType, membershipId):
+        path = Director.GetResultDirectory(membershipType, membershipId)
+        shutil.rmtree(path)
 
     @staticmethod
     def GetZipPath(membershipType, membershipId):
