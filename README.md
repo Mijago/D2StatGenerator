@@ -3,7 +3,7 @@ This downloads all your PGCRs (Post Game Carnage Report) from the Bungie.net api
 
 # How to Use?
 3) Install all required packages
-   1) `python -m pip install pandas plotly pathos requests`
+   1) `python -m pip install pandas plotly pathos requests pretty_html_table`
 4) Add your api key to `main.py`
 5) Edit your user info in `main.py`
 6) Run! `python3 main.py`
