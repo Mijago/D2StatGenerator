@@ -91,7 +91,7 @@ class KDReport(Report):
         df['Date'] = pd.to_datetime(df['start']) - pd.to_timedelta(7, unit='d')
         df = df[df["is_pvp"] == 1]
         # dfx = df[df["bucket"] == 953998645] # heavy only
-        df = df.groupby(['mode', "mode_name", pd.Grouper(key='Date', freq='W-TUE')])['kills', "deaths", "assists"] \
+        df = df.groupby(['mode', "mode_name", pd.Grouper(key='Date', freq='W-TUE')])[['kills', "deaths", "assists"]] \
             .sum().reset_index().sort_values('Date')
 
         df["kills_cul"] = df.groupby(["mode"])["kills"].cumsum()

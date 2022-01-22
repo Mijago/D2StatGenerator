@@ -15,7 +15,7 @@ if __name__ == '__main__':
     from pathos.multiprocessing import ProcessPool
 
     pathos.helpers.freeze_support()
-    pool = ProcessPool(nodes=40)
+    pool = ProcessPool(15)
 
     MEMBERSHIP_MIJAGO = (3, 4611686018482684809)
     USED_MEMBERSHIP = MEMBERSHIP_MIJAGO

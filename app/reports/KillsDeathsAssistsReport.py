@@ -85,7 +85,7 @@ class KillsDeathsAssistsReport(Report):
         df = self.generateRawDataframe(data)
 
         df4 = df[df["is_pvp"] == 1]
-        df4 = df4.groupby(['mode', "mode_name", pd.Grouper(key='Date', freq='W-TUE')])['kills', "deaths", "assists"] \
+        df4 = df4.groupby(['mode', "mode_name", pd.Grouper(key='Date', freq='W-TUE')])[['kills', "deaths", "assists"]] \
             .sum().reset_index().sort_values('Date')
         df4["deaths"] = -df4["deaths"]
 
