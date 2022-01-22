@@ -40,8 +40,10 @@ class WeaponReport(Report):
                      color="type_name",
                      color_discrete_sequence=px.colors.qualitative.Light24,
                      template="plotly_dark",
-                     facet_col="mode_name", facet_col_wrap=3, facet_row_spacing=0,
+                     facet_col="mode_name", facet_col_wrap=3, facet_row_spacing=0
                      )
+        fig.update_traces(hovertemplate="%{y}")
+        fig.update_layout(hovermode="x unified")
         fig.update_yaxes(matches=None)
         fig.update_yaxes(showticklabels=True)
         fig.update_xaxes(matches='x')

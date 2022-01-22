@@ -33,6 +33,8 @@ class KDReport(Report):
                       facet_col="mode_name",
                       facet_col_wrap=3, facet_row_spacing=0,
                       )
+        fig.update_traces(hovertemplate="%{y:.2f}")
+        fig.update_layout(hovermode="x unified")
         fig.update_yaxes(matches=None)
         fig.update_yaxes(showticklabels=True)
         fig.update_xaxes(matches='x')
