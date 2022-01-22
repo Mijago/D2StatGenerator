@@ -15,7 +15,7 @@ class KillsDeathsAssistsReport(Report):
         super().save()
 
     def getName(self) -> str:
-        return "chart_pvp_kill_death"
+        return "[PVP] chart - kills, deaths and assists per week"
 
     def __init__(self, membershipType, membershipId) -> None:
         super().__init__(membershipType, membershipId)

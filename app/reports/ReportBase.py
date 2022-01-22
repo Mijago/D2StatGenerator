@@ -2,6 +2,7 @@ import plotly as pl
 from app.Director import Director
 import abc
 
+
 class Report:
 
     def __init__(self, membershipType, membershipId) -> None:
@@ -24,3 +25,4 @@ class Report:
             self.fig, auto_open=False,
             filename='%s/%s.html' % (Director.GetResultDirectory(self.membershipType, self.membershipId), self.getName())
         )
+        print("Report> Generated %s" % self.getName())

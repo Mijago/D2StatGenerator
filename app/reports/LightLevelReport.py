@@ -14,7 +14,7 @@ class LightLevelReport(Report):
         super().save()
 
     def getName(self) -> str:
-        return "chart_all_lightlevel"
+        return "[ALL] chart - lightlevel"
 
     def __init__(self, membershipType, membershipId) -> None:
         super().__init__(membershipType, membershipId)

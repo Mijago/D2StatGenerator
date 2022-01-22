@@ -15,7 +15,7 @@ class KDReport(Report):
         super().save()
 
     def getName(self) -> str:
-        return "chart_pvp_kd"
+        return "[PVP] chart - kd and kda ratio"
 
     def __init__(self, membershipType, membershipId) -> None:
         super().__init__(membershipType, membershipId)
