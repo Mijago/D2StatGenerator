@@ -1,4 +1,5 @@
 from app.Director import Director
+from app.DiscordSender import DiscordSender
 from app.InventoryItem import GetInventoryItemDefinitions
 from app.PgcrCollector import PGCRCollector
 from app.Zipper import Zipper
@@ -29,8 +30,10 @@ if __name__ == '__main__':
     Director.ClearResultDirectory(*USED_MEMBERSHIP)
     Director.CreateDirectoriesForUser(*USED_MEMBERSHIP)
     pc = PGCRCollector(*USED_MEMBERSHIP, api, pool)
-    pc.getCharacters().getActivities(limit=None).getPGCRs(pagesize=1000)  # .combineAllPgcrs()
+    pc.getCharacters().getActivities(limit=None).getPGCRs(pagesize=1000)# .combineAllPgcrs()
     data = pc.getAllPgcrs()
+
+    pool.close()
 
     inventoryItemDefs = GetInventoryItemDefinitions()
 
@@ -46,3 +49,6 @@ if __name__ == '__main__':
 
     Zipper.zip_directory(Director.GetResultDirectory(*USED_MEMBERSHIP), Director.GetZipPath(*USED_MEMBERSHIP))
     print("Generated ZIP:", Director.GetZipPath(*USED_MEMBERSHIP))
+
+    DiscordSender.send(Director.GetZipPath(*USED_MEMBERSHIP), *USED_MEMBERSHIP)
+    print("Sent ZIP:", Director.GetZipPath(*USED_MEMBERSHIP))

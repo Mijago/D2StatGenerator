@@ -21,8 +21,8 @@ class Report:
 
     def save(self):
         assert self.fig is not None
-        pl.offline.plot(
-            self.fig, auto_open=False,
-            filename='%s/%s.html' % (Director.GetResultDirectory(self.membershipType, self.membershipId), self.getName())
-        )
+        filename = '%s/%s.html' % (Director.GetResultDirectory(self.membershipType, self.membershipId), self.getName())
+        with open(filename, "w") as f:
+            f.write(self.fig.to_html(full_html=False, include_plotlyjs='cdn'))
+
         print("Report> Generated %s" % self.getName())

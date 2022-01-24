@@ -70,7 +70,10 @@ class PGCRCollector:
 
         def downloadPGCR(activity):
             id = activity
-            return bungo.getPGCR(id)
+
+            pgcr = bungo.getPGCR(id)
+            with open("%s/pgcr_%s.json" % (Director.GetPGCRDirectory(self.membershipType, self.membershipId), pgcr["activityDetails"]["instanceId"]), "w") as f:
+                f.write(json.dumps(pgcr))
 
         stepsize = pagesize
         START_PAGE = 0
@@ -83,10 +86,7 @@ class PGCRCollector:
             try:
                 with Timer("Get PGCRs %d through %d" % (steps * stepsize + 1, min(len(self.activities), (steps + 1) * stepsize))):
                     # self.processPool.restart(True)
-                    pgcrs = self.processPool.amap(downloadPGCR, self.activities[steps * stepsize:(steps + 1) * stepsize]).get()
-                    for pgcr in pgcrs:
-                        with open("%s/pgcr_%s.json" % (Director.GetPGCRDirectory(self.membershipType, self.membershipId), pgcr["activityDetails"]["instanceId"]), "w") as f:
-                            f.write(json.dumps(pgcr))
+                     self.processPool.amap(downloadPGCR, self.activities[steps * stepsize:(steps + 1) * stepsize]).get()
             except Exception as e:
                 print(e)
         return self
