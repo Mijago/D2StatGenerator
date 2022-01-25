@@ -24,7 +24,7 @@ class WeaponReport(Report):
         super().save()
 
     def getName(self) -> str:
-        return "[ALL] chart - weapons used per activity type"
+        return "[ALL] chart_bar - weapons used over time; per activity type "
 
     def __init__(self, membershipType, membershipId, inventoryItemDefs) -> None:
         super().__init__(membershipType, membershipId)

@@ -4,11 +4,14 @@ from app.InventoryItem import GetInventoryItemDefinitions
 from app.PgcrCollector import PGCRCollector
 from app.Zipper import Zipper
 from app.bungieapi import BungieApi
+from app.reports.ActivityCountReport import ActivityCountReport
 from app.reports.ActivityLocationTimeReport import ActivityLocationTimeReport
 from app.reports.ActivityLocationWeaponReport import ActivityLocationWeaponReport
+from app.reports.ActivityWinrateReport import ActivityWinrateReport
 from app.reports.KDReport import KDReport
 from app.reports.KillsDeathsAssistsReport import KillsDeathsAssistsReport
 from app.reports.LightLevelReport import LightLevelReport
+from app.reports.PlaytimeCharacterReport import PlaytimeCharacterReport
 from app.reports.PlaytimeReport import PlaytimeReport
 from app.reports.WeaponKillTreeReport import WeaponKillTreeReport
 from app.reports.WeaponReport import WeaponReport
@@ -42,9 +45,12 @@ if __name__ == '__main__':
     WeaponReport(*USED_MEMBERSHIP, inventoryItemDefs).generate(data).save()
     LightLevelReport(*USED_MEMBERSHIP).generate(data).save()
     PlaytimeReport(*USED_MEMBERSHIP).generate(data).save()
+    PlaytimeCharacterReport(*USED_MEMBERSHIP).generate(data).save()
+    ActivityCountReport(*USED_MEMBERSHIP).generate(data).save()
     WeekdayReport(*USED_MEMBERSHIP).generate(data).save()
     ActivityLocationTimeReport(*USED_MEMBERSHIP).generate(data).save()
     ActivityLocationWeaponReport(*USED_MEMBERSHIP, inventoryItemDefs).generate(data).save()
+    ActivityWinrateReport(*USED_MEMBERSHIP).generate(data).save()
     WeaponKillTreeReport(*USED_MEMBERSHIP, inventoryItemDefs).generate(data).save()
 
     Zipper.zip_directory(Director.GetResultDirectory(*USED_MEMBERSHIP), Director.GetZipPath(*USED_MEMBERSHIP))

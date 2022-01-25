@@ -4,3 +4,10 @@ services:
     build: .
     volumes:
       - /tmp/data:/code/data
+
+#    networks:
+#      - mijagodedocker_behind-proxy
+
+#networks:
+#  mijagodedocker_behind-proxy:
+#    external: true

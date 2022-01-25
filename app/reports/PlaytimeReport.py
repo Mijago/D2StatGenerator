@@ -14,7 +14,7 @@ class PlaytimeReport(Report):
         super().save()
 
     def getName(self) -> str:
-        return "[ALL] chart - playtime, weekly and daily"
+        return "[ALL] chart_bar - playtime, weekly and daily"
 
     def __init__(self, membershipType, membershipId) -> None:
         super().__init__(membershipType, membershipId)

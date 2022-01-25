@@ -15,7 +15,7 @@ class ActivityLocationWeaponReport(Report):
         super().save()
 
     def getName(self) -> str:
-        return "[ALL] chart - weapons per activity type and location"
+        return "[ALL] chart_tree - weapons per activity type and location"
 
     def __init__(self, membershipType, membershipId, inventoryItemDefs) -> None:
         super().__init__(membershipType, membershipId)
@@ -54,7 +54,7 @@ class ActivityLocationWeaponReport(Report):
                 for wp in entry["extended"]["weapons"]:
 
                     typus = "PvE"
-                    if datapoint["activityDetails"]["mode"] in [84, 81, 80, 74, 73, 72, 71, 68, 65, 62, 61, 60, 59, 50, 48, 43, 45, 44, 41, 42, 37, 38, 31, 25, 15]:
+                    if datapoint["activityDetails"]["mode"] in [84, 81, 80, 74, 73, 72, 71, 68, 65, 62, 61, 60, 59, 50, 48, 32, 43, 45, 44, 41, 42, 37, 38, 31, 25, 15]:
                         typus = "PvP"
                     elif datapoint["activityDetails"]["mode"] in [75, 63]:
                         typus = "Gambit"

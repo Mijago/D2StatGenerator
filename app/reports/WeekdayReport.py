@@ -11,7 +11,7 @@ class WeekdayReport(Report):
         super().save()
 
     def getName(self) -> str:
-        return "[ALL] chart - playtime per weekday heatmap"
+        return "[ALL] chart_heat - playtime per weekday"
 
     def __init__(self, membershipType, membershipId) -> None:
         super().__init__(membershipType, membershipId)

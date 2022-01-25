@@ -15,7 +15,7 @@ class WeaponKillTreeReport(Report):
         super().save()
 
     def getName(self) -> str:
-        return "[ALL] chart - weapon kills (tree)"
+        return "[ALL] chart_tree - weapon kills; by type"
 
     def __init__(self, membershipType, membershipId, inventoryItemDefs) -> None:
         super().__init__(membershipType, membershipId)
