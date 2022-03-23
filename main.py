@@ -60,5 +60,5 @@ if __name__ == '__main__':
     Zipper.zip_directory(Director.GetResultDirectory(*USED_MEMBERSHIP), Director.GetZipPath(*USED_MEMBERSHIP))
     print("Generated ZIP:", Director.GetZipPath(*USED_MEMBERSHIP))
 
-    DiscordSender.send(Director.GetZipPath(*USED_MEMBERSHIP), *USED_MEMBERSHIP)
-    print("Sent ZIP:", Director.GetZipPath(*USED_MEMBERSHIP))
+    #DiscordSender.send(Director.GetZipPath(*USED_MEMBERSHIP), *USED_MEMBERSHIP)
+    #print("Sent ZIP:", Director.GetZipPath(*USED_MEMBERSHIP))
