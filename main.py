@@ -8,6 +8,7 @@ from app.reports.ActivityCountReport import ActivityCountReport
 from app.reports.ActivityLocationTimeReport import ActivityLocationTimeReport
 from app.reports.ActivityLocationWeaponReport import ActivityLocationWeaponReport
 from app.reports.ActivityWinrateReport import ActivityWinrateReport
+from app.reports.FireteamRace import FireteamRaceReport
 from app.reports.KDReport import KDReport
 from app.reports.KillsDeathsAssistsReport import KillsDeathsAssistsReport
 from app.reports.LightLevelReport import LightLevelReport
@@ -22,12 +23,14 @@ if __name__ == '__main__':
     from pathos.multiprocessing import ProcessPool
 
     pathos.helpers.freeze_support()
+    # you can set this to 60 to make it really fast, but RIP your CPU
     pool = ProcessPool(15)
 
     MEMBERSHIP_MIJAGO = (3, 4611686018482684809)
     USED_MEMBERSHIP = MEMBERSHIP_MIJAGO
 
     api = BungieApi("API-KEY")
+    VIDEO_TYPE = "gif" # you can also use "mp4" if you installed ffmpeg; see README.d
 
     Director.CreateDirectoriesForUser(*USED_MEMBERSHIP)
     Director.ClearResultDirectory(*USED_MEMBERSHIP)
@@ -52,6 +55,7 @@ if __name__ == '__main__':
     ActivityLocationWeaponReport(*USED_MEMBERSHIP, inventoryItemDefs).generate(data).save()
     ActivityWinrateReport(*USED_MEMBERSHIP).generate(data).save()
     WeaponKillTreeReport(*USED_MEMBERSHIP, inventoryItemDefs).generate(data).save()
+    FireteamRaceReport(*USED_MEMBERSHIP, video_type=VIDEO_TYPE).generate(data).save()
 
     Zipper.zip_directory(Director.GetResultDirectory(*USED_MEMBERSHIP), Director.GetZipPath(*USED_MEMBERSHIP))
     print("Generated ZIP:", Director.GetZipPath(*USED_MEMBERSHIP))

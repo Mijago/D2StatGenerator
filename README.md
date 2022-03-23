@@ -4,6 +4,7 @@ This downloads all your PGCRs (Post Game Carnage Report) from the Bungie.net api
 # How to Use?
 3) Install all required packages
    1) `python -m pip install pandas plotly pathos requests pretty_html_table`
+   2) If you want to use mp4 instead of gif, also install `python -m pip python-ffmpeg` and put an `ffmpeg` executable in your PATH variable. Then set the `video_type` in `main.py` to `mp4`
 4) Add your api key to `main.py`
 5) Edit your user info in `main.py`
 6) Run! `python3 main.py`
