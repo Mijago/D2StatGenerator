@@ -7,6 +7,7 @@ from app.bungieapi import BungieApi
 from app.reports.ActivityCountReport import ActivityCountReport
 from app.reports.ActivityLocationTimeReport import ActivityLocationTimeReport
 from app.reports.ActivityLocationWeaponReport import ActivityLocationWeaponReport
+from app.reports.ActivityTypeRaceReport import ActivityTypeRaceReport
 from app.reports.ActivityWinrateReport import ActivityWinrateReport
 from app.reports.FireteamRace import FireteamRaceReport
 from app.reports.KDReport import KDReport
@@ -15,6 +16,7 @@ from app.reports.LightLevelReport import LightLevelReport
 from app.reports.PlaytimeCharacterReport import PlaytimeCharacterReport
 from app.reports.PlaytimeReport import PlaytimeReport
 from app.reports.WeaponKillTreeReport import WeaponKillTreeReport
+from app.reports.WeaponRaceReport import WeaponRaceReport
 from app.reports.WeaponReport import WeaponReport
 from app.reports.WeekdayReport import WeekdayReport
 
@@ -36,7 +38,7 @@ if __name__ == '__main__':
     Director.ClearResultDirectory(*USED_MEMBERSHIP)
     Director.CreateDirectoriesForUser(*USED_MEMBERSHIP)
     pc = PGCRCollector(*USED_MEMBERSHIP, api, pool)
-    pc.getCharacters().getActivities(limit=None).getPGCRs(pagesize=1000)# .combineAllPgcrs()
+    pc.getCharacters().getActivities(limit=None).getPGCRs(pagesize=1000)  # .combineAllPgcrs()
     data = pc.getAllPgcrs()
 
     pool.close()
@@ -57,9 +59,10 @@ if __name__ == '__main__':
     WeaponKillTreeReport(*USED_MEMBERSHIP, inventoryItemDefs).generate(data).save()
     FireteamRaceReport(*USED_MEMBERSHIP, video_type=VIDEO_TYPE).generate(data).save()
     WeaponRaceReport(*USED_MEMBERSHIP, inventoryItemDefs, video_type=VIDEO_TYPE).generate(data).save()
+    ActivityTypeRaceReport(*USED_MEMBERSHIP, video_type=VIDEO_TYPE).generate(data).save()
 
     Zipper.zip_directory(Director.GetResultDirectory(*USED_MEMBERSHIP), Director.GetZipPath(*USED_MEMBERSHIP))
     print("Generated ZIP:", Director.GetZipPath(*USED_MEMBERSHIP))
 
-    #DiscordSender.send(Director.GetZipPath(*USED_MEMBERSHIP), *USED_MEMBERSHIP)
-    #print("Sent ZIP:", Director.GetZipPath(*USED_MEMBERSHIP))
+    # DiscordSender.send(Director.GetZipPath(*USED_MEMBERSHIP), *USED_MEMBERSHIP)
+    # print("Sent ZIP:", Director.GetZipPath(*USED_MEMBERSHIP))
