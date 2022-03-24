@@ -56,6 +56,7 @@ if __name__ == '__main__':
     ActivityWinrateReport(*USED_MEMBERSHIP).generate(data).save()
     WeaponKillTreeReport(*USED_MEMBERSHIP, inventoryItemDefs).generate(data).save()
     FireteamRaceReport(*USED_MEMBERSHIP, video_type=VIDEO_TYPE).generate(data).save()
+    WeaponRaceReport(*USED_MEMBERSHIP, inventoryItemDefs, video_type=VIDEO_TYPE).generate(data).save()
 
     Zipper.zip_directory(Director.GetResultDirectory(*USED_MEMBERSHIP), Director.GetZipPath(*USED_MEMBERSHIP))
     print("Generated ZIP:", Director.GetZipPath(*USED_MEMBERSHIP))
