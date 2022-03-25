@@ -3,6 +3,10 @@ This downloads all your PGCRs (Post Game Carnage Report) from the Bungie.net api
 If you find a bug when you run it locally, feel free to open an issue and I'll look at it - I don't really give support for this, though.
 I'll add some more charts over time!
 
+Make sure to post your cool charts on Twitter and to mention me on them! 
+I'd love to see what all of you get to see! 
+My Twitter: https://twitter.com/MijagoCoding/
+
 # How to Use?
 3) Install all required packages
    1) `python -m pip install pandas plotly pathos requests pretty_html_table bar-chart-race`
