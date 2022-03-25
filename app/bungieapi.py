@@ -41,7 +41,10 @@ class BungieApi:
     def getPGCR(self, activityId):
         params = {}
 
-        api_call = requests.get(f'{API_ROOT_PATH}/Destiny2/Stats/PostGameCarnageReport/{activityId}/', headers=self.__HEADERS, params=params)
+        try:
+            api_call = requests.get(f'{API_ROOT_PATH}/Destiny2/Stats/PostGameCarnageReport/{activityId}/', headers=self.__HEADERS, params=params, timeout=(10, 10))
+        except:
+            return None
         return (api_call.json())['Response']
 
     def getItem(self, itemReferenceId):

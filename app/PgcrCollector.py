@@ -70,8 +70,13 @@ class PGCRCollector:
 
         def downloadPGCR(activity):
             id = activity
+            tries = 0
 
-            pgcr = bungo.getPGCR(id)
+            pgcr = None
+            while pgcr == None and tries < 10:
+                tries += 1
+                pgcr = bungo.getPGCR(id)
+
             with open("%s/pgcr_%s.json" % (Director.GetPGCRDirectory(self.membershipType, self.membershipId), pgcr["activityDetails"]["instanceId"]), "w") as f:
                 f.write(json.dumps(pgcr))
 
