@@ -24,9 +24,10 @@ if __name__ == '__main__':
     import pathos
     from pathos.multiprocessing import ProcessPool
 
-    pathos.helpers.freeze_support()
-    # you can set this to 60 to make it really fast, but RIP your CPU
-    pool = ProcessPool(15)
+    pathos.helpers.freeze_support() # required for windows
+    pool = ProcessPool()
+    # You could also specify the amount of threads. Not that this DRASTICALLY speeds up the process, but takes serious computation power
+    # pool = ProcessPool(60)
 
     MEMBERSHIP_MIJAGO = (3, 4611686018482684809)
     USED_MEMBERSHIP = MEMBERSHIP_MIJAGO
