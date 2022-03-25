@@ -24,6 +24,10 @@ I'll add some more charts over time!
 3) Look at the URL: `https://www.d2checklist.com/3/4611686018482684809/milestones`
    In this case, `3` is your MEMBERSHIP_TYPE and `4611686018482684809` is the MEMBERSHIP_ID, so you'll do something like `MEMBERSHIP_MIJAGO = (3, 4611686018482684809)`.
 
+
+# Known Issues
+- Sometimes the PGCR-Download is stuck. This is an issue with the threading library. Just restart the whole script. This is not a big issue as it continues where it stopped.
+
 # Examples
 These examples are from the early stage:
 
@@ -33,6 +37,3 @@ These examples are from the early stage:
 ![img_3.png](examples/img_3.png)
 ![fireteam.gif](examples/fireteam.gif)
 ![weapons.gif](examples/weapons.gif)
-
-# Known Issues
-- Sometimes the PGCR-Download is stuck. This is an issue with the threading library. Just restart the whole script. This is not a big issue as it continues where it stopped.
