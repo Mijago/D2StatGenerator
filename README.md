@@ -10,7 +10,7 @@ My Twitter: https://twitter.com/MijagoCoding/
 # How to Use?
 3) Install all required packages
    1) `python -m pip install pandas plotly pathos requests pretty_html_table bar-chart-race`
-   2) If you want to use mp4 instead of gif, also install `python -m pip python-ffmpeg` and put a [ffmpeg](https://www.ffmpeg.org/download.html) in your PATH variable. Then set the `VIDEO_TYPE` in `main.py` to `mp4`. 
+   2) If you want to use mp4 instead of gif, also install `python -m pip install python-ffmpeg` and put a [ffmpeg](https://www.ffmpeg.org/download.html) in your PATH variable. Then set the `VIDEO_TYPE` in `main.py` to `mp4`. 
    
       **I highly encourage you to do this, as the gifs tend to be 40mb in size, whereas the mp4 is only around 1.5mb~2mb**.
    
