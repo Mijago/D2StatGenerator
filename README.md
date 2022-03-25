@@ -6,7 +6,7 @@ I'll add some more charts over time!
 # How to Use?
 3) Install all required packages
    1) `python -m pip install pandas plotly pathos requests pretty_html_table bar-chart-race`
-   2) If you want to use mp4 instead of gif, also install `python -m pip python-ffmpeg` and put an `ffmpeg` executable in your PATH variable. Then set the `VIDEO_TYPE` in `main.py` to `mp4`. **I highly encourage you to do this**.
+   2) If you want to use mp4 instead of gif, also install `python -m pip python-ffmpeg` and put a [ffmpeg](https://www.ffmpeg.org/download.html) executable in your PATH variable. Then set the `VIDEO_TYPE` in `main.py` to `mp4`. **I highly encourage you to do this**.
 4) Add your api key to `main.py`. For this, edit `api = BungieApi("API-KEY")`.
 5) Edit your user info in `main.py`.
    ```py
