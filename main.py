@@ -8,6 +8,7 @@ from app.reports.ActivityLocationTimeReport import ActivityLocationTimeReport
 from app.reports.ActivityLocationWeaponReport import ActivityLocationWeaponReport
 from app.reports.ActivityTypeRaceReport import ActivityTypeRaceReport
 from app.reports.ActivityWinrateReport import ActivityWinrateReport
+from app.reports.FireteamActivityReport import FireteamActivityReport
 from app.reports.FireteamRace import FireteamRaceReport
 from app.reports.KDReport import KDReport
 from app.reports.KillsDeathsAssistsReport import KillsDeathsAssistsReport
@@ -61,6 +62,7 @@ if __name__ == '__main__':
     FireteamRaceReport(*USED_MEMBERSHIP, video_type=VIDEO_TYPE).generate(data).save()
     WeaponRaceReport(*USED_MEMBERSHIP, inventoryItemDefs, video_type=VIDEO_TYPE).generate(data).save()
     ActivityTypeRaceReport(*USED_MEMBERSHIP, video_type=VIDEO_TYPE).generate(data).save()
+    FireteamActivityReport(*USED_MEMBERSHIP).generate(data).save()
 
     Zipper.zip_directory(Director.GetResultDirectory(*USED_MEMBERSHIP), Director.GetZipPath(*USED_MEMBERSHIP))
     print("Generated ZIP:", Director.GetZipPath(*USED_MEMBERSHIP))
