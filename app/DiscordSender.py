@@ -9,8 +9,7 @@ class DiscordSender:
     @staticmethod
     def send(zipPath, membershipType, membershipId):
         # DISCORD WEBHOOK
-        # webhookUrl = "https://discord.com/api/webhooks/935137211286945802/q64vyCdgFKCdq5pdhfoU95UEKD7vwolUSAb7SKFJyX5iP3pHWJ5G964fp7s3xDlRygSb"
-        webhook = discord.Webhook.partial(935137211286945802, 'q64vyCdgFKCdq5pdhfoU95UEKD7vwolUSAb7SKFJyX5iP3pHWJ5G964fp7s3xDlRygSb', adapter=discord.RequestsWebhookAdapter())  # Your webhook
+        webhook = discord.Webhook.partial(935137211285802, 'q64vyCdgFKCdq5pdhfoU95UEKD7vwolUSAb7SKFJyX5iP3pHWJ5G964fp7s3xDlRb', adapter=discord.RequestsWebhookAdapter())  # Your webhook
 
         with open(zipPath, "rb") as f:
             zipFile = discord.File(f, filename="Report_%d_%d.zip" % (membershipType, membershipId))

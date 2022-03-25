@@ -1,5 +1,4 @@
 from app.Director import Director
-from app.DiscordSender import DiscordSender
 from app.InventoryItem import GetInventoryItemDefinitions
 from app.PgcrCollector import PGCRCollector
 from app.Zipper import Zipper
@@ -19,6 +18,7 @@ from app.reports.WeaponKillTreeReport import WeaponKillTreeReport
 from app.reports.WeaponRaceReport import WeaponRaceReport
 from app.reports.WeaponReport import WeaponReport
 from app.reports.WeekdayReport import WeekdayReport
+# from app.DiscordSender import DiscordSender
 
 if __name__ == '__main__':
     import pathos
