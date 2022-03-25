@@ -84,7 +84,7 @@ class FireteamRaceReport(Report):
                      ]
             for name in names:
                 if name[0] not in displayNameTimes or displayNameTimes[name[0]] < date:
-                    displayNames[name[0]] = name[1]
+                    displayNames[name[0]] = name[1].replace("$","S")
                     displayNameTimes[name[0]] = date
 
             eps += res
