@@ -35,7 +35,6 @@ class PlaytimeCharacterReport(Report):
                       # facet_col="mode_name",
                       # facet_col_wrap=3, facet_row_spacing=0,
                       )
-        fig.show()
         fig.update_traces(hovertemplate="%{y:.2f}h")
         fig.update_yaxes(matches=None)
         fig.update_yaxes(showticklabels=True)
