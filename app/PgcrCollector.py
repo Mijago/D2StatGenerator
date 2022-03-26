@@ -1,4 +1,5 @@
 import os
+from itertools import zip_longest
 
 from app.Director import Director
 from app.bungieapi import BungieApi
@@ -105,13 +106,19 @@ class PGCRCollector:
 
     def getAllPgcrs(self):
 
-        def loadJson(fname):
-            with open(fname, "r") as f:
-                return json.load(f)
+        def loadJson(fnameList):
+            r = []
+            for fname in fnameList:
+                if fname is None:
+                    continue
+                with open(fname, "r") as f:
+                    r.append( json.load(f))
+            return r
 
         with Timer("Get all PGCRs from individual files"):
             root = Director.GetPGCRDirectory(self.membershipType, self.membershipId)
             fileList = ["%s/%s" % (root, f) for f in os.listdir(root)]
-            pgcrs = self.processPool.amap(loadJson, fileList).get()
-            all = pgcrs
+            chunks = list(zip_longest(*[iter(fileList)] * 100, fillvalue=None))
+            pgcrs = self.processPool.amap(loadJson, chunks).get()
+            all = [item for sublist in pgcrs for item in sublist]
         return all
