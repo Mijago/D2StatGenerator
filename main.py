@@ -1,5 +1,5 @@
 from app.Director import Director
-from app.InventoryItem import GetInventoryItemDefinitions
+from app.bungiemanifest import GetActivityNames, GetInventoryItemDefinitions
 from app.PgcrCollector import PGCRCollector
 from app.Zipper import Zipper
 from app.bungieapi import BungieApi
@@ -26,7 +26,7 @@ if __name__ == '__main__':
     from pathos.multiprocessing import ProcessPool
 
     pathos.helpers.freeze_support() # required for windows
-    pool = ProcessPool()
+    pool = ProcessPool(25)
     # You could also specify the amount of threads. Not that this DRASTICALLY speeds up the process, but takes serious computation power
     # pool = ProcessPool(60)
 
@@ -46,23 +46,28 @@ if __name__ == '__main__':
     pool.close()
 
     inventoryItemDefs = GetInventoryItemDefinitions()
+    activityNames = GetActivityNames()
 
-    KDReport(*USED_MEMBERSHIP).generate(data).save()
-    KillsDeathsAssistsReport(*USED_MEMBERSHIP).generate(data).save()
-    WeaponReport(*USED_MEMBERSHIP, inventoryItemDefs).generate(data).save()
-    LightLevelReport(*USED_MEMBERSHIP).generate(data).save()
-    PlaytimeReport(*USED_MEMBERSHIP).generate(data).save()
-    PlaytimeCharacterReport(*USED_MEMBERSHIP).generate(data).save()
-    ActivityCountReport(*USED_MEMBERSHIP).generate(data).save()
-    WeekdayReport(*USED_MEMBERSHIP).generate(data).save()
-    ActivityLocationTimeReport(*USED_MEMBERSHIP).generate(data).save()
-    ActivityLocationWeaponReport(*USED_MEMBERSHIP, inventoryItemDefs).generate(data).save()
-    ActivityWinrateReport(*USED_MEMBERSHIP).generate(data).save()
-    WeaponKillTreeReport(*USED_MEMBERSHIP, inventoryItemDefs).generate(data).save()
-    FireteamRaceReport(*USED_MEMBERSHIP, video_type=VIDEO_TYPE).generate(data).save()
-    WeaponRaceReport(*USED_MEMBERSHIP, inventoryItemDefs, video_type=VIDEO_TYPE).generate(data).save()
-    ActivityTypeRaceReport(*USED_MEMBERSHIP, video_type=VIDEO_TYPE).generate(data).save()
-    FireteamActivityReport(*USED_MEMBERSHIP).generate(data).save()
+    reports = [
+        KDReport(*USED_MEMBERSHIP),
+        KillsDeathsAssistsReport(*USED_MEMBERSHIP),
+        WeaponReport(*USED_MEMBERSHIP, inventoryItemDefs),
+        LightLevelReport(*USED_MEMBERSHIP),
+        PlaytimeReport(*USED_MEMBERSHIP),
+        PlaytimeCharacterReport(*USED_MEMBERSHIP),
+        ActivityCountReport(*USED_MEMBERSHIP, activityNames),
+        WeekdayReport(*USED_MEMBERSHIP),
+        ActivityLocationTimeReport(*USED_MEMBERSHIP, activityNames),
+        ActivityLocationWeaponReport(*USED_MEMBERSHIP, inventoryItemDefs, activityNames),
+        ActivityWinrateReport(*USED_MEMBERSHIP, activityNames),
+        WeaponKillTreeReport(*USED_MEMBERSHIP, inventoryItemDefs),
+        FireteamRaceReport(*USED_MEMBERSHIP, video_type=VIDEO_TYPE),
+        WeaponRaceReport(*USED_MEMBERSHIP, inventoryItemDefs, video_type=VIDEO_TYPE),
+        ActivityTypeRaceReport(*USED_MEMBERSHIP, video_type=VIDEO_TYPE),
+        FireteamActivityReport(*USED_MEMBERSHIP)
+    ]
+    for report in reports:
+        report.generate(data).save()
 
     Zipper.zip_directory(Director.GetResultDirectory(*USED_MEMBERSHIP), Director.GetZipPath(*USED_MEMBERSHIP))
     print("Generated ZIP:", Director.GetZipPath(*USED_MEMBERSHIP))

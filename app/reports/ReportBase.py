@@ -1,4 +1,3 @@
-import plotly as pl
 from app.Director import Director
 import abc
 

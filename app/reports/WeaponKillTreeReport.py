@@ -1,13 +1,6 @@
-import dateutil.parser
-from datetime import datetime
 import pandas as pd
-
-from app.Director import Director
-from app.data.activities import ACTIVITY_NAMES
-from app.data.directorActivityNames import DIRECTOR_ACTIVITY_NAMES
 from app.reports.ReportBase import Report
 import plotly.express as px
-import plotly as pl
 
 
 class WeaponKillTreeReport(Report):

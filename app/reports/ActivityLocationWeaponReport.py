@@ -1,13 +1,9 @@
 import dateutil.parser
-from datetime import datetime
 import pandas as pd
 
-from app.Director import Director
 from app.data.activities import ACTIVITY_NAMES
-from app.data.directorActivityNames import DIRECTOR_ACTIVITY_NAMES
 from app.reports.ReportBase import Report
 import plotly.express as px
-import plotly as pl
 
 
 class ActivityLocationWeaponReport(Report):
@@ -17,9 +13,10 @@ class ActivityLocationWeaponReport(Report):
     def getName(self) -> str:
         return "[ALL] chart_tree - weapons per activity type and location"
 
-    def __init__(self, membershipType, membershipId, inventoryItemDefs) -> None:
+    def __init__(self, membershipType, membershipId, inventoryItemDefs, activityNames) -> None:
         super().__init__(membershipType, membershipId)
         self.InventoryItemDefinitions = inventoryItemDefs
+        self.activityNames = activityNames
 
     def generate(self, data) -> Report:
         df = self.generateData(data)
@@ -62,10 +59,10 @@ class ActivityLocationWeaponReport(Report):
                     activity.append(ACTIVITY_NAMES[datapoint["activityDetails"]["mode"]])
                     key = str(datapoint["activityDetails"]["directorActivityHash"])
                     key2 = str(datapoint["activityDetails"]["referenceId"])
-                    if key2 in DIRECTOR_ACTIVITY_NAMES:
-                        directorActivity.append(DIRECTOR_ACTIVITY_NAMES[key2])
-                    elif key in DIRECTOR_ACTIVITY_NAMES:
-                        directorActivity.append(DIRECTOR_ACTIVITY_NAMES[key])
+                    if key2 in self.activityNames:
+                        directorActivity.append(self.activityNames[key2])
+                    elif key in self.activityNames:
+                        directorActivity.append(self.activityNames[key])
                     else:
                         directorActivity.append(key)
                     weapon.append(self.InventoryItemDefinitions[str(wp["referenceId"])]["displayProperties"]["name"])
