@@ -16,8 +16,8 @@ class LightLevelReport(Report):
     def getName(self) -> str:
         return "[ALL] chart_line - lightlevel"
 
-    def __init__(self, membershipType, membershipId) -> None:
-        super().__init__(membershipType, membershipId)
+    def __init__(self, membershipType, membershipId, manifest) -> None:
+        super().__init__(membershipType, membershipId, manifest)
 
     def generate(self, data) -> Report:
         df = self.generateDataframe(data)

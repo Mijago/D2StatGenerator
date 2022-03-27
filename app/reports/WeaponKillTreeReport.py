@@ -10,9 +10,8 @@ class WeaponKillTreeReport(Report):
     def getName(self) -> str:
         return "[ALL] chart_tree - weapon kills; by type"
 
-    def __init__(self, membershipType, membershipId, inventoryItemDefs) -> None:
-        super().__init__(membershipType, membershipId)
-        self.InventoryItemDefinitions = inventoryItemDefs
+    def __init__(self, membershipType, membershipId, manifest) -> None:
+        super().__init__(membershipType, membershipId, manifest)
 
     def generate(self, data) -> Report:
         df = self.generateData(data)
@@ -42,8 +41,8 @@ class WeaponKillTreeReport(Report):
                     precision = 1 * wp["values"]["uniqueWeaponPrecisionKills"]["basic"]["value"]
                     normal = 1 * wp["values"]["uniqueWeaponKills"]["basic"]["value"] - precision
                     for idx, value in enumerate([normal, precision]):
-                        weaponType.append(self.InventoryItemDefinitions[str(wp["referenceId"])]["itemTypeDisplayName"])
-                        weapon.append(self.InventoryItemDefinitions[str(wp["referenceId"])]["displayProperties"]["name"])
+                        weaponType.append(self.manifest.ItemDefinitions[str(wp["referenceId"])]["itemTypeDisplayName"])
+                        weapon.append(self.manifest.ItemDefinitions[str(wp["referenceId"])]["displayProperties"]["name"])
                         killType.append("Non-Precision" if idx == 0 else "Precision")
                         kills.append(value)
 

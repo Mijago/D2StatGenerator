@@ -13,10 +13,9 @@ class WeaponRaceReport(Report):
     def getName(self) -> str:
         return "[ALL] race - weapon usage"
 
-    def __init__(self, membershipType, membershipId, inventoryItemDefs, video_type="gif") -> None:
-        super().__init__(membershipType, membershipId)
+    def __init__(self, membershipType, membershipId, manifest, video_type="gif") -> None:
+        super().__init__(membershipType, membershipId, manifest)
         self.video_type = video_type
-        self.InventoryItemDefinitions = inventoryItemDefs
 
     def save(self):
         pass
@@ -80,7 +79,7 @@ class WeaponRaceReport(Report):
                     eps.append(
                         (
                             date,
-                            self.InventoryItemDefinitions[str(wp["referenceId"])]["displayProperties"]["name"],
+                            self.manifest.ItemDefinitions[str(wp["referenceId"])]["displayProperties"]["name"],
                             value
                         )
                     )

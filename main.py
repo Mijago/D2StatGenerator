@@ -1,5 +1,5 @@
 from app.Director import Director
-from app.bungiemanifest import GetActivityNames, GetInventoryItemDefinitions
+from app.bungiemanifest import DestinyManifest
 from app.PgcrCollector import PGCRCollector
 from app.Zipper import Zipper
 from app.bungieapi import BungieApi
@@ -24,8 +24,9 @@ from app.reports.WeekdayReport import WeekdayReport
 if __name__ == '__main__':
     import pathos
     from pathos.multiprocessing import ProcessPool
+    pathos.helpers.freeze_support()  # required for windows
+    manifest = DestinyManifest().update()
 
-    pathos.helpers.freeze_support() # required for windows
     pool = ProcessPool(25)
     # You could also specify the amount of threads. Not that this DRASTICALLY speeds up the process, but takes serious computation power
     # pool = ProcessPool(60)
@@ -45,26 +46,23 @@ if __name__ == '__main__':
 
     pool.close()
 
-    inventoryItemDefs = GetInventoryItemDefinitions()
-    activityNames = GetActivityNames()
-
     reports = [
-        KDReport(*USED_MEMBERSHIP),
-        KillsDeathsAssistsReport(*USED_MEMBERSHIP),
-        WeaponReport(*USED_MEMBERSHIP, inventoryItemDefs),
-        LightLevelReport(*USED_MEMBERSHIP),
-        PlaytimeReport(*USED_MEMBERSHIP),
-        PlaytimeCharacterReport(*USED_MEMBERSHIP),
-        ActivityCountReport(*USED_MEMBERSHIP, activityNames),
-        WeekdayReport(*USED_MEMBERSHIP),
-        ActivityLocationTimeReport(*USED_MEMBERSHIP, activityNames),
-        ActivityLocationWeaponReport(*USED_MEMBERSHIP, inventoryItemDefs, activityNames),
-        ActivityWinrateReport(*USED_MEMBERSHIP, activityNames),
-        WeaponKillTreeReport(*USED_MEMBERSHIP, inventoryItemDefs),
-        FireteamRaceReport(*USED_MEMBERSHIP, video_type=VIDEO_TYPE),
-        WeaponRaceReport(*USED_MEMBERSHIP, inventoryItemDefs, video_type=VIDEO_TYPE),
-        ActivityTypeRaceReport(*USED_MEMBERSHIP, video_type=VIDEO_TYPE),
-        FireteamActivityReport(*USED_MEMBERSHIP)
+        KDReport(*USED_MEMBERSHIP, manifest),
+        KillsDeathsAssistsReport(*USED_MEMBERSHIP, manifest),
+        WeaponReport(*USED_MEMBERSHIP, manifest),
+        LightLevelReport(*USED_MEMBERSHIP, manifest),
+        PlaytimeReport(*USED_MEMBERSHIP, manifest),
+        PlaytimeCharacterReport(*USED_MEMBERSHIP, manifest),
+        ActivityCountReport(*USED_MEMBERSHIP, manifest),
+        WeekdayReport(*USED_MEMBERSHIP, manifest),
+        ActivityLocationTimeReport(*USED_MEMBERSHIP, manifest),
+        ActivityLocationWeaponReport(*USED_MEMBERSHIP, manifest),
+        ActivityWinrateReport(*USED_MEMBERSHIP, manifest),
+        WeaponKillTreeReport(*USED_MEMBERSHIP, manifest),
+        FireteamRaceReport(*USED_MEMBERSHIP, manifest, video_type=VIDEO_TYPE),
+        WeaponRaceReport(*USED_MEMBERSHIP, manifest, video_type=VIDEO_TYPE),
+        ActivityTypeRaceReport(*USED_MEMBERSHIP, manifest, video_type=VIDEO_TYPE),
+        FireteamActivityReport(*USED_MEMBERSHIP, manifest)
     ]
     for report in reports:
         report.generate(data).save()

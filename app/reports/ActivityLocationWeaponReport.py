@@ -1,7 +1,5 @@
 import dateutil.parser
 import pandas as pd
-
-from app.data.activities import ACTIVITY_NAMES
 from app.reports.ReportBase import Report
 import plotly.express as px
 
@@ -13,10 +11,8 @@ class ActivityLocationWeaponReport(Report):
     def getName(self) -> str:
         return "[ALL] chart_tree - weapons per activity type and location"
 
-    def __init__(self, membershipType, membershipId, inventoryItemDefs, activityNames) -> None:
-        super().__init__(membershipType, membershipId)
-        self.InventoryItemDefinitions = inventoryItemDefs
-        self.activityNames = activityNames
+    def __init__(self, membershipType, membershipId, manifest) -> None:
+        super().__init__(membershipType, membershipId, manifest)
 
     def generate(self, data) -> Report:
         df = self.generateData(data)
@@ -56,16 +52,16 @@ class ActivityLocationWeaponReport(Report):
                     elif datapoint["activityDetails"]["mode"] in [75, 63]:
                         typus = "Gambit"
                     category.append(typus)
-                    activity.append(ACTIVITY_NAMES[datapoint["activityDetails"]["mode"]])
+                    activity.append(self.manifest.ActivityTypeNames[datapoint["activityDetails"]["mode"]])
                     key = str(datapoint["activityDetails"]["directorActivityHash"])
                     key2 = str(datapoint["activityDetails"]["referenceId"])
-                    if key2 in self.activityNames:
-                        directorActivity.append(self.activityNames[key2])
-                    elif key in self.activityNames:
-                        directorActivity.append(self.activityNames[key])
+                    if key2 in self.manifest.ActivityNames:
+                        directorActivity.append(self.manifest.ActivityNames[key2])
+                    elif key in self.manifest.ActivityNames:
+                        directorActivity.append(self.manifest.ActivityNames[key])
                     else:
                         directorActivity.append(key)
-                    weapon.append(self.InventoryItemDefinitions[str(wp["referenceId"])]["displayProperties"]["name"])
+                    weapon.append(self.manifest.ItemDefinitions[str(wp["referenceId"])]["displayProperties"]["name"])
                     kills.append(1 * wp["values"]["uniqueWeaponKills"]["basic"]["value"])
 
         df = pd.DataFrame({

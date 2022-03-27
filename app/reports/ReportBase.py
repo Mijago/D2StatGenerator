@@ -1,13 +1,16 @@
 from app.Director import Director
 import abc
 
+from app.bungiemanifest import DestinyManifest
+
 
 class Report:
 
-    def __init__(self, membershipType, membershipId) -> None:
+    def __init__(self, membershipType, membershipId, manifest: DestinyManifest) -> None:
         super().__init__()
         self.membershipType = membershipType
         self.membershipId = membershipId
+        self.manifest = manifest
         self.fig = None
 
     @abc.abstractmethod

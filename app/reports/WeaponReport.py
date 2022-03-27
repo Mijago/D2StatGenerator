@@ -3,7 +3,7 @@ import pandas as pd
 from datetime import datetime
 
 from app.Director import Director
-from app.data.activities import ACTIVITY_NAMES, PVP_ACTIVITIES
+from app.data.activities import PVP_ACTIVITIES
 import plotly.express as px
 
 from app.reports.ReportBase import Report
@@ -26,9 +26,8 @@ class WeaponReport(Report):
     def getName(self) -> str:
         return "[ALL] chart_bar - weapons used over time; per activity type "
 
-    def __init__(self, membershipType, membershipId, inventoryItemDefs) -> None:
-        super().__init__(membershipType, membershipId)
-        self.InventoryItemDefinitions = inventoryItemDefs
+    def __init__(self, membershipType, membershipId, manifest) -> None:
+        super().__init__(membershipType, membershipId, manifest)
         self.df = None
 
     def generate(self, data) -> Report:
@@ -75,15 +74,15 @@ class WeaponReport(Report):
                     starttime.append(datetime.fromtimestamp(timestamp + starts).strftime("%Y-%m-%d %H:%M"))
                     endtime.append(datetime.fromtimestamp(timestamp + ends).strftime("%Y-%m-%d %H:%M"))
                     weapon.append(wp["referenceId"])
-                    name.append(self.InventoryItemDefinitions[str(wp["referenceId"])]["displayProperties"]["name"])
-                    type_name.append(self.InventoryItemDefinitions[str(wp["referenceId"])]["itemTypeDisplayName"])
-                    bucket.append(self.InventoryItemDefinitions[str(wp["referenceId"])]["inventory"]["bucketTypeHash"])
+                    name.append(self.manifest.ItemDefinitions[str(wp["referenceId"])]["displayProperties"]["name"])
+                    type_name.append(self.manifest.ItemDefinitions[str(wp["referenceId"])]["itemTypeDisplayName"])
+                    bucket.append(self.manifest.ItemDefinitions[str(wp["referenceId"])]["inventory"]["bucketTypeHash"])
 
                     kills.append(1 * wp["values"]["uniqueWeaponKills"]["basic"]["value"])
                     kills_precision.append(1 * wp["values"]["uniqueWeaponPrecisionKills"]["basic"]["value"])
 
                     mode.append(str(datapoint["activityDetails"]["mode"]))
-                    mode_name.append(ACTIVITY_NAMES[datapoint["activityDetails"]["mode"]])
+                    mode_name.append(self.manifest.ActivityTypeNames[datapoint["activityDetails"]["mode"]])
 
         df = pd.DataFrame({
             "start": starttime,

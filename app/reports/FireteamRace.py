@@ -13,8 +13,8 @@ class FireteamRaceReport(Report):
     def getName(self) -> str:
         return "[ALL] race - fireteam playtime"
 
-    def __init__(self, membershipType, membershipId, video_type="gif") -> None:
-        super().__init__(membershipType, membershipId)
+    def __init__(self, membershipType, membershipId, manifest, video_type="gif") -> None:
+        super().__init__(membershipType, membershipId, manifest)
         self.video_type = video_type
 
     def save(self):

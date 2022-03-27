@@ -1,7 +1,5 @@
 import pandas as pd
-
 from app.Director import Director
-from app.data.activities import ACTIVITY_NAMES
 from app.reports.ReportBase import Report
 import bar_chart_race as bcr
 from dateutil import parser
@@ -14,8 +12,8 @@ class ActivityTypeRaceReport(Report):
     def getName(self) -> str:
         return "[ALL] race - activity type playtime"
 
-    def __init__(self, membershipType, membershipId, video_type="gif") -> None:
-        super().__init__(membershipType, membershipId)
+    def __init__(self, membershipType, membershipId, manifest, video_type="gif") -> None:
+        super().__init__(membershipType, membershipId, manifest)
         self.video_type = video_type
 
     def save(self):
@@ -63,7 +61,7 @@ class ActivityTypeRaceReport(Report):
             eps.append(
                 (
                     date,
-                    ACTIVITY_NAMES[data["activityDetails"]["mode"]],
+                    self.manifest.ActivityTypeNames[data["activityDetails"]["mode"]],
                     entry["values"]["activityDurationSeconds"]["basic"]["value"] / 60 / 60
                 )
             )

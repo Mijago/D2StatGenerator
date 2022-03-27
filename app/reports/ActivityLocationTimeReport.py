@@ -1,12 +1,8 @@
 import dateutil.parser
 from datetime import datetime
 import pandas as pd
-
-from app.Director import Director
-from app.data.activities import ACTIVITY_NAMES
 from app.reports.ReportBase import Report
 import plotly.express as px
-import plotly as pl
 
 
 class ActivityLocationTimeReport(Report):
@@ -17,9 +13,8 @@ class ActivityLocationTimeReport(Report):
     def getName(self) -> str:
         return "[ALL] chart_tree - activity playtime; by type and location"
 
-    def __init__(self, membershipType, membershipId, activityNames) -> None:
-        super().__init__(membershipType, membershipId)
-        self.activityNames = activityNames
+    def __init__(self, membershipType, membershipId, manifest) -> None:
+        super().__init__(membershipType, membershipId, manifest)
 
     def generate(self, data) -> Report:
         df = self.generateData(data)
@@ -56,13 +51,13 @@ class ActivityLocationTimeReport(Report):
                 elif datapoint["activityDetails"]["mode"] in [75, 63]:
                     typus = "Gambit"
                 category.append(typus)
-                activity.append(ACTIVITY_NAMES[datapoint["activityDetails"]["mode"]])
+                activity.append(self.manifest.ActivityTypeNames[datapoint["activityDetails"]["mode"]])
                 key = str(datapoint["activityDetails"]["directorActivityHash"])
                 key2 = str(datapoint["activityDetails"]["referenceId"])
-                if key2 in self.activityNames:
-                    directorActivity.append(self.activityNames[key2])
-                elif key in self.activityNames:
-                    directorActivity.append(self.activityNames[key])
+                if key2 in self.manifest.ActivityNames:
+                    directorActivity.append(self.manifest.ActivityNames[key2])
+                elif key in self.manifest.ActivityNames:
+                    directorActivity.append(self.manifest.ActivityNames[key])
                 else:
                     directorActivity.append(key)
                 playtime.append(entry["values"]["timePlayedSeconds"]["basic"]["value"] / 60 / 60)

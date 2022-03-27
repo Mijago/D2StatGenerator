@@ -1,6 +1,5 @@
 import dateutil.parser
 import pandas as pd
-from app.data.activities import ACTIVITY_NAMES
 from app.reports.ReportBase import Report
 import plotly.express as px
 
@@ -12,9 +11,9 @@ class ActivityWinrateReport(Report):
     def getName(self) -> str:
         return "[PVP] chart_tree - activity winrate; per mode and map"
 
-    def __init__(self, membershipType, membershipId, activityNames) -> None:
-        super().__init__(membershipType, membershipId)
-        self.activityNames = activityNames
+    def __init__(self, membershipType, membershipId, manifest, video_type="gif") -> None:
+        super().__init__(membershipType, membershipId, manifest)
+        self.video_type = video_type
 
     def generate(self, data) -> Report:
         df = self.generateData(data)
@@ -63,14 +62,14 @@ class ActivityWinrateReport(Report):
 
                 wintype.append(win)
                 typ.append(typus)
-                mode.append(ACTIVITY_NAMES[datapoint["activityDetails"]["mode"]])
+                mode.append(self.manifest.ActivityTypeNames[datapoint["activityDetails"]["mode"]])
 
                 key = str(datapoint["activityDetails"]["directorActivityHash"])
                 key2 = str(datapoint["activityDetails"]["referenceId"])
-                if key2 in self.activityNames:
-                    directorActivity.append(self.activityNames[key2])
-                elif key in self.activityNames:
-                    directorActivity.append(self.activityNames[key])
+                if key2 in self.manifest.ActivityNames:
+                    directorActivity.append(self.manifest.ActivityNames[key2])
+                elif key in self.manifest.ActivityNames:
+                    directorActivity.append(self.manifest.ActivityNames[key])
                 else:
                     directorActivity.append(key)
 

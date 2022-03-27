@@ -1,10 +1,7 @@
 import dateutil.parser
 import pandas as pd
 from datetime import datetime
-
-from app.data.activities import ACTIVITY_NAMES
 import plotly.express as px
-
 from app.reports.ReportBase import Report
 
 
@@ -16,8 +13,8 @@ class PlaytimeCharacterReport(Report):
     def getName(self) -> str:
         return "[ALL] chart_area - playtime, split per character"
 
-    def __init__(self, membershipType, membershipId) -> None:
-        super().__init__(membershipType, membershipId)
+    def __init__(self, membershipType, membershipId, manifest) -> None:
+        super().__init__(membershipType, membershipId, manifest)
 
     def generate(self, data) -> Report:
         df = self.generateDataframe(data)

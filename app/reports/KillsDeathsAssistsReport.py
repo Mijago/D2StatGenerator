@@ -1,9 +1,6 @@
-
 import dateutil.parser
 import pandas as pd
 from datetime import datetime
-
-from app.data.activities import ACTIVITY_NAMES
 import plotly.express as px
 
 from app.reports.ReportBase import Report
@@ -17,8 +14,8 @@ class KillsDeathsAssistsReport(Report):
     def getName(self) -> str:
         return "[PVP] chart_bar - kills, deaths and assists per week"
 
-    def __init__(self, membershipType, membershipId) -> None:
-        super().__init__(membershipType, membershipId)
+    def __init__(self, membershipType, membershipId, manifest) -> None:
+        super().__init__(membershipType, membershipId, manifest)
 
     def generate(self, data) -> Report:
         df = self.generateDataframe(data)
@@ -68,7 +65,7 @@ class KillsDeathsAssistsReport(Report):
                 kills.append(entry["values"]["kills"]["basic"]["value"])
 
                 mode.append(datapoint["activityDetails"]["mode"])
-                mode_name.append(ACTIVITY_NAMES[datapoint["activityDetails"]["mode"]])
+                mode_name.append(self.manifest.ActivityTypeNames[datapoint["activityDetails"]["mode"]])
 
         df = pd.DataFrame({
             "start": starttime,

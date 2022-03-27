@@ -1,9 +1,6 @@
 import dateutil.parser
 import pandas as pd
-
 from app.Director import Director
-from app.data.activities import ACTIVITY_NAMES
-
 from app.reports.ReportBase import Report
 
 
@@ -17,8 +14,8 @@ class FireteamActivityReport(Report):
     def getName(self) -> str:
         return "[ALL] table - fireteam member activities"
 
-    def __init__(self, membershipType, membershipId) -> None:
-        super().__init__(membershipType, membershipId)
+    def __init__(self, membershipType, membershipId, manifest) -> None:
+        super().__init__(membershipType, membershipId, manifest)
         self.df = None
 
     def generate(self, data) -> Report:
@@ -41,7 +38,7 @@ class FireteamActivityReport(Report):
                     e["player"]["destinyUserInfo"]["membershipId"],
                     e["player"]["destinyUserInfo"]["membershipId"],
                     date,
-                    ACTIVITY_NAMES[data["activityDetails"]["mode"]],
+                    self.manifest.ActivityTypeNames[data["activityDetails"]["mode"]],
                     entry["values"]["activityDurationSeconds"]["basic"]["value"] / 60
                 )
                 for e in data["entries"]
