@@ -78,7 +78,7 @@ class KillsDeathsAssistsReport(Report):
             "assists": assists,
         })
 
-        df["is_pvp"] = df["mode"].astype("int32").isin([84, 81, 80, 74, 73, 72, 71, 68, 65, 62, 61, 60, 59, 50, 48, 43, 45, 44, 41, 42, 37, 38, 31, 25, 15]) * 1
+        df["is_pvp"] = df["mode"].astype("int32").isin([90, 89, 88, 84, 81, 80, 74, 73, 72, 71, 68, 65, 62, 61, 60, 59, 50, 48, 43, 45, 44, 41, 42, 37, 38, 31, 25, 15]) * 1
         df['Date'] = pd.to_datetime(df['start']) - pd.to_timedelta(7, unit='d')
         return df
 
