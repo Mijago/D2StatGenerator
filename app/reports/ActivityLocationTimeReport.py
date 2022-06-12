@@ -46,7 +46,7 @@ class ActivityLocationTimeReport(Report):
                 start_date = datetime.fromtimestamp(timestamp + starts)
 
                 typus = "PvE"
-                if datapoint["activityDetails"]["mode"] in [84, 81, 80, 74, 73, 72, 71, 68, 65, 62, 61, 60, 59, 50, 48, 43, 45, 44, 41, 42, 37, 38, 31, 25, 15]:
+                if datapoint["activityDetails"]["mode"] in [90, 89, 88, 84, 81, 80, 74, 73, 72, 71, 68, 65, 62, 61, 60, 59, 50, 48, 43, 45, 44, 41, 42, 37, 38, 31, 25, 15]:
                     typus = "PvP"
                 elif datapoint["activityDetails"]["mode"] in [75, 63]:
                     typus = "Gambit"

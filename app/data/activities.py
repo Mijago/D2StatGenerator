@@ -55,8 +55,10 @@ ACTIVITY_NAMES = {
     84: 'Trials of Osiris',
     85: 'Dares of Eternity',
     86: 'Offensive',
-    87: '????', # not here?? https://bungie-net.github.io/#/components/schemas/Destiny.Definitions.DestinyActivityDefinition
+    87: 'Lost Sector',
+    89: 'Zone Control',
+    90: 'Iron Banner Rift'
 }
 
-PVP_ACTIVITIES = [84, 81, 80, 74, 73, 72, 71, 68, 65, 62, 61, 60, 59, 50, 48, 43, 45, 44, 41, 42, 37, 38, 31, 25, 15]
+PVP_ACTIVITIES = [90, 89, 88, 84, 81, 80, 74, 73, 72, 71, 68, 65, 62, 61, 60, 59, 50, 48, 43, 45, 44, 41, 42, 37, 38, 31, 25, 15]
 GAMBIT_ACTIVITIES = [75, 63]
