@@ -31,8 +31,31 @@ if __name__ == '__main__':
     # You could also specify the amount of threads. Not that this DRASTICALLY speeds up the process, but takes serious computation power
     # pool = ProcessPool(60)
 
+    # 4611686018472661350	s u p e r Q	        3
+    # 4611686018428655241	shtgunwedding	    2
+    # 4611686018471254627	euro	            3
+    # 4611686018429172178	Zen	                2
+    # 4611686018431056529	Cookie	            1
+    # 4611686018493244360	NekoPetter	        1
+    # 4611686018434141347	MizarTheManBeast    2
+    # 4611686018467356666	Leopard	            3
+    # 4611686018470531562	llBEEFCAKEll	    2
+    # 4611686018471708355	Redwngs	            2
+    # 4611686018534347056	Dredgen Q	        3
+    # 4611686018434143141	Math_Man	        2
+    # 4611686018436271063   sprqman             2
+    # 4611686018467307732   unknown             3
+    # 4611686018468977942   psnglitcherz537     2
+
     MEMBERSHIP_MIJAGO = (3, 4611686018482684809)
-    USED_MEMBERSHIP = MEMBERSHIP_MIJAGO
+    MEMBERSHIP_SUPERQ = (3, 4611686018472661350)
+    MEMBERSHIP_DREDGENQ = (3, 4611686018534347056)
+    MEMBERSHIP_SPRQMAN = (2, 4611686018436271063)
+    MEMBERSHIP_UNKNOWN = (3, 4611686018467307732)
+    MEMBERSHIP_PSNGLITCHERZ537 = (2, 4611686018468977942)
+    MEMBERSHIP_MIJAGO = (3, 4611686018482684809)
+
+    USED_MEMBERSHIP = MEMBERSHIP_SUPERQ
 
     api = BungieApi("API-KEY")
     VIDEO_TYPE = "gif" # you can also use "mp4" if you installed ffmpeg; see README.d
