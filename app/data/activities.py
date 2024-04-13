@@ -58,8 +58,9 @@ ACTIVITY_NAMES = {
     87: 'Lost Sector',
     88: "Rift",
     89: "Zone Control",
-    90: "Iron Banner Rift"
+    90: "Iron Banner Rift",
+    91: "Iron Banner Zone Control"
 }
 
-PVP_ACTIVITIES = [84, 81, 80, 74, 73, 72, 71, 68, 65, 62, 61, 60, 59, 50, 48, 43, 45, 44, 41, 42, 37, 38, 31, 25, 15]
+PVP_ACTIVITIES = [91, 90, 84, 81, 80, 74, 73, 72, 71, 68, 65, 62, 61, 60, 59, 50, 48, 43, 45, 44, 41, 42, 37, 38, 31, 25, 15]
 GAMBIT_ACTIVITIES = [75, 63]
